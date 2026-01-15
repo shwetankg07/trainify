@@ -49,7 +49,7 @@ function saveRoutine(){
   const routineList = JSON.parse(localStorage.getItem('myRoutines')) || [];
   routineList.push(newRoutine);
   localStorage.setItem('myRoutines', JSON.stringify(routineList));
-  alert("Routines Saved!");
+  alert("Routine Saved!");
   document.getElementById('routine-name').value = "";
   document.getElementById('exercise-list').innerHTML = "";
   document.getElementById('exercise-input').value = "";
@@ -69,4 +69,23 @@ function populateDropdown() {
 }
 if (document.getElementById('routine-dropdown')) {
     populateDropdown();
+}
+
+function loadRoutineInputs() {
+    const dropdown = document.getElementById('routine-dropdown');
+    console.log(dropdown.value);
+    const existingRoutines = JSON.parse(localStorage.getItem('myRoutines')) || [];
+    const whatsRN = existingRoutines.find(potato => potato.name == dropdown.value); //found out you can use anything here, so potato it is lol
+    console.log(whatsRN);
+    if(whatsRN === undefined){
+      return;
+    }
+    const container = document.getElementById('inputs-container');
+    container.innerHTML = "";
+    whatsRN.exercises.forEach(potato => {     //potato again, coz, why not? heh
+    const exerciseHeader = document.createElement('h3');
+    exerciseHeader.innerText = potato;
+    console.log(potato);
+    container.appendChild(exerciseHeader);
+  })
 }
