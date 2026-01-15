@@ -10,10 +10,29 @@
 
     <div id="navbar-placeholder"></div>
 
-    <div class="page-content">
-        <h1>routines.html</h1>
-        
-        </div>
+        <div class="page-content">
+    <h1>Create a Routine</h1>
+    
+    <div style="margin-bottom: 20px;">
+        <label>Routine Name:</label><br>
+        <input type="text" id="routine-name" placeholder="e.g., Push Day" style="padding: 8px;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label>Add Exercise:</label><br>
+        <input type="text" id="exercise-input" placeholder="e.g., Bench Press" style="padding: 8px;">
+        <button onclick="addExercise()" style="padding: 8px;">Add +</button>
+    </div>
+
+    <h3>Exercises in this routine:</h3>
+    <ul id="exercise-list" style="margin-bottom: 20px; background: #eee; padding: 20px;">
+        <li>(No exercises added yet)</li>
+    </ul>
+
+    <button onclick="saveRoutine()" style="padding: 10px 20px; background: green; color: white; border: none; cursor: pointer;">
+        Save Routine
+    </button>
+</div> 
 
     <script src="script.js"></script>
 </body>
