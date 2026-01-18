@@ -1,5 +1,5 @@
 let tempExercises = [];
-
+let workoutData = [];
 
 // function for all the navbars
 function loadNavbar() {
@@ -83,9 +83,52 @@ function loadRoutineInputs() {
     const container = document.getElementById('inputs-container');
     container.innerHTML = "";
     whatsRN.exercises.forEach(potato => {     //potato again, coz, why not? heh
+    const card = document.createElement('div');
+        card.style.border = "1px solid #ccc";
+        card.style.margin = "10px";
+        card.style.padding = "10px";
     const exerciseHeader = document.createElement('h3');
     exerciseHeader.innerText = potato;
     console.log(potato);
-    container.appendChild(exerciseHeader);
+    card.appendChild(exerciseHeader);
+    const weightInput = document.createElement('input');
+    weightInput.type = "number";
+    weightInput.placeholder = "set up that heavy ahh weight";
+    card.appendChild(weightInput);
+    const repInput = document.createElement("input");
+    repInput.type = "number";
+    repInput.placeholder = "reps?";
+    card.appendChild(repInput);
+    container.appendChild(card);
   })
+}
+
+function finishWorkout(){
+    const cards = document.querySelectorAll('#inputs-container > div');
+    cards.forEach(card => {
+      const name = card.querySelector('h3').innerText;
+      const inputs = card.querySelectorAll('input');
+      const weight = inputs[0].value;
+      const reps = inputs[1].value;
+      console.log(inputs,weight,reps);
+    if(weight && reps){
+      workoutData.push({
+        exercise: name,
+        weight: weight,
+        reps: reps
+      });
+    }
+  });
+  const today = new Date().toLocaleDateString();
+  const session = {
+    date: today,
+    workout: name,
+    exercises: workoutData
+  };
+  const previousLogs = JSON.parse(localStorage.getItem('myWorkoutLogs')) || [];
+  previousLogs.push(session);
+  localStorage.setItem('myWorkoutLogs', JSON.stringify(previousLogs));
+  alert("Workout Saved! Great job.");
+  window.location.href = "index.html";
+
 }
