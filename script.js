@@ -152,7 +152,10 @@ function loadRoutineInputs() {
 }
 
 function finishWorkout(){
+    const dropdown = document.getElementById('routine-dropdown');
+    const workout = dropdown.value;
     const cards = document.querySelectorAll('#inputs-container > div');
+  const workoutData = [];
     cards.forEach(card => {
       const name = card.querySelector('h3').innerText;
       const inputs = card.querySelectorAll('input');
@@ -170,7 +173,7 @@ function finishWorkout(){
   const today = new Date().toLocaleDateString();
   const session = {
     date: today,
-    workout: name,
+    workout: workout,
     exercises: workoutData
   };
   const previousLogs = JSON.parse(localStorage.getItem('myWorkoutLogs')) || [];
@@ -206,4 +209,49 @@ function compareStats(){
   }
 }
 
+function loadHistory() {
+    const historyContainer = document.getElementById('history-list');
+    if (!historyContainer) return;
+    const logs = JSON.parse(localStorage.getItem('myWorkoutLogs')) || [];
+    if (logs.length === 0) {
+        historyContainer.innerHTML = "<p>No workouts found. Go lift something! 💪</p>";
+        return;
+    }
+    historyContainer.innerHTML = '';
+    logs.reverse().forEach(log => {
+        const card = document.createElement('div');
+        card.style.border = "1px solid #ddd";
+        card.style.padding = "15px";
+        card.style.borderRadius = "8px";
+        card.style.background = "#fff";
+        const exercisesHtml = log.exercises.map(ex => 
+            `<li><strong>${ex.exercise}:</strong> ${ex.weight}kg x ${ex.reps} reps</li>`
+        ).join('');
+        card.innerHTML = `
+            <h3 style="margin: 0 0 10px 0;">${log.date} - ${log.workout}</h3>
+            <ul style="padding-left: 20px; color: #555;">
+                ${exercisesHtml}
+            </ul>
+        `;
+        historyContainer.appendChild(card);
+    });
+}
+loadHistory();
 
+// ENABLE "ENTER" KEY TO ADD EXERCISE
+const exerciseInput = document.getElementById('exercise-input');
+
+if (exerciseInput) {
+    exerciseInput.addEventListener('keyup', function(event) {
+        // Check for "Enter" key
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Stop any weird default browser behavior
+            
+            // Check if the box is empty (optional, but good UX)
+            if (exerciseInput.value.trim() !== "") {
+                console.log("Enter pressed! Adding exercise...");
+                addExercise(); // <--- Calls your function directly!
+            }
+        }
+    });
+}
