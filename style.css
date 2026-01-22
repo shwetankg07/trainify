@@ -1,0 +1,368 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    --primary: #4F46E5;      /* Modern Indigo */
+    --primary-hover: #4338ca;
+    --accent: #10B981;       /* Emerald Green */
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed; /* Keeps gradient consistent on scroll */
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 80px; /* Space for the fixed navbar */
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================================
+   2. GLASSMORPHISM NAVBAR
+   ========================================= */
+.glass-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px); /* The "Frosted Glass" effect */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+    padding: 12px 24px;
+    animation: slideDown 0.6s ease-out;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-logo {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    margin-left: 20px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(79, 70, 229, 0.1); /* Light Indigo tint */
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   3. MAIN CONTENT CARDS
+   ========================================= */
+.page-content {
+    background: var(--glass-bg);
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid white;
+    margin-top: 20px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(to right, var(--primary), #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* =========================================
+   4. INPUTS & FORMS
+   ========================================= */
+.form-group {
+    margin-bottom: 24px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* =========================================
+   5. MODERN BUTTONS
+   ========================================= */
+button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Primary "Save" Button */
+#save-btn {
+    background: linear-gradient(135deg, var(--accent) 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+#save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+/* Add Button */
+#add-btn {
+    background: var(--primary);
+    color: white;
+    width: auto;
+    padding: 0 24px;
+}
+
+#add-btn:hover {
+    background: var(--primary-hover);
+}
+
+/* Input Group Alignment */
+.input-group {
+    display: flex;
+    gap: 12px;
+}
+
+/* =========================================
+   6. LIST STYLING
+   ========================================= */
+.list-container {
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px dashed #d1d5db;
+    margin-bottom: 30px;
+}
+
+#exercise-list li {
+    background: white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+    animation: fadeIn 0.4s ease-in;
+}
+
+#exercise-list li:hover {
+    transform: scale(1.02);
+}
+
+/* =========================================
+   7. ANIMATIONS
+   ========================================= */
+@keyframes slideDown {
+    from { transform: translate(-50%, -100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .glass-nav {
+        width: 95%;
+        padding: 10px 16px;
+    }
+    .nav-links a {
+        font-size: 0.9rem;
+        margin-left: 10px;
+        padding: 5px;
+    }
+}
+
+/* =========================================
+   8. LOGGER PAGE SPECIFIC
+   ========================================= */
+
+/* The generated cards inside the inputs container */
+#inputs-container > div {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Soft shadow */
+    border-left: 5px solid var(--primary); /* Blue stripe on the left */
+    animation: fadeInUp 0.5s ease-out; /* Slide in effect */
+}
+
+/* The Exercise Name inside the card */
+#inputs-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--primary);
+    font-size: 1.2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* The Inputs inside the card (Weight & Reps) */
+#inputs-container input {
+    margin-bottom: 10px; /* Space between Weight and Reps */
+}
+
+/* Labels inside the generated cards (if any) */
+#inputs-container label {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* =========================================
+   9. STATS DASHBOARD SPECIFIC
+   ========================================= */
+
+/* Make the main container wider for stats */
+.dashboard-container {
+    max-width: 800px; /* Gives the chart room to breathe */
+}
+
+/* CARDS: The white boxes holding sections */
+.dashboard-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--primary);
+}
+
+.subtitle {
+    margin: 5px 0 20px 0;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* HISTORY SECTION */
+.history-scroll-area {
+    max-height: 300px; /* Limits height */
+    overflow-y: auto;  /* Adds scrollbar if list is long */
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+/* Custom Scrollbar styling */
+.history-scroll-area::-webkit-scrollbar {
+    width: 6px;
+}
+.history-scroll-area::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 10px;
+}
+
+/* INPUT GRID: 5 columns in one row */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-wrapper label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center; /* Numbers look better centered */
+    border: 1px solid #e0e0e0;
+    background: #f9f9f9;
+}
+
+.input-wrapper input:focus {
+    background: white;
+    border-color: var(--primary);
+}
+
+/* CHART STAGE */
+.chart-stage {
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    /* This shadow makes the chart pop out */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    position: relative;
+    height: 400px; /* Enforces height */
+}

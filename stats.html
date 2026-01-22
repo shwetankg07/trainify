@@ -3,61 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Tracker</title>
+    <title>Gym Tracker - Stats</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <div id="navbar-placeholder"></div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div id="history-section" style="margin-top: 40px;">
-    <h2>Past Workouts 📜</h2>
-    <div id="history-list" style="display: flex; flex-direction: column; gap: 15px;"></div>
-</div>
-<div id="comparison-section" style="margin-top: 40px; border-top: 2px solid #eee; padding-top: 20px;">
-    <h2>Compare with the Community 🌍</h2>
-    <p>See how you stack up against 900+ other gym members.</p>
 
-    <div class="stats-form" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
-        
-        <div>
-            <label style="display: block; font-weight: bold;">Age</label>
-            <input type="number" id="age-input" placeholder="e.g. 24" style="padding: 5px;">
+    <div class="page-content dashboard-container">
+        <h1>Your Analytics </h1>
+
+        <div class="dashboard-card history-section">
+            <div class="card-header">
+                <h2>📜 History Log</h2>
+                <span class="badge">Recent</span>
+            </div>
+            <div id="history-list" class="history-scroll-area"></div>
         </div>
 
-        <div>
-            <label style="display: block; font-weight: bold;">Weight (kg)</label>
-            <input type="number" id="weight-input" placeholder="e.g. 75" style="padding: 5px;">
+        <div class="dashboard-card comparison-section">
+            <div class="card-header">
+                <h2>🌍 Benchmark vs. Community</h2>
+                <p class="subtitle">See how you stack up against 900+ members.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="input-wrapper">
+                    <label>Age</label>
+                    <input type="number" id="age-input" placeholder="24">
+                </div>
+                <div class="input-wrapper">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weight-input" placeholder="75">
+                </div>
+                <div class="input-wrapper">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height-input" placeholder="180">
+                </div>
+                <div class="input-wrapper">
+                    <label>Duration (m)</label>
+                    <input type="number" id="duration-input" placeholder="45">
+                </div>
+                <div class="input-wrapper">
+                    <label>Days/Week</label>
+                    <input type="number" id="freq-input" placeholder="4">
+                </div>
+            </div>
+
+            <button id="compare-btn" onclick="compareStats()">🚀 Run Comparison</button>
+
+            <div class="chart-stage">
+                <canvas id="comparisonChart"></canvas>
+            </div>
         </div>
 
-        <div>
-            <label style="display: block; font-weight: bold;">Height (cm)</label>
-            <input type="number" id="height-input" placeholder="e.g. 180" style="padding: 5px;">
-        </div>
-
-        <div>
-            <label style="display: block; font-weight: bold;">Duration (mins)</label>
-            <input type="number" id="duration-input" placeholder="e.g. 45" style="padding: 5px;">
-        </div>
-
-        <div>
-            <label style="display: block; font-weight: bold;">Days / Week</label>
-            <input type="number" id="freq-input" placeholder="e.g. 4" style="padding: 5px;">
-        </div>
-
-        <button id="compare-btn" onclick="compareStats()" style="padding: 8px 16px; cursor: pointer; background-color: #36A2EB; color: white; border: none; border-radius: 4px;">
-            Compare Me!
-        </button>
     </div>
-
-    <div style="margin-top: 30px; max-height: 400px;">
-        <canvas id="comparisonChart"></canvas>
-    </div>
-</div>
-    <div class="page-content">
-        <h1>stats.html</h1>
-        
-        </div>
 
     <script src="script.js"></script>
 </body>

@@ -11,61 +11,109 @@ const gymBenchmarks = [
 let tempExercises = [];
 let workoutData = [];
 
-// function for all the navbars
 function loadNavbar() {
     const navHTML = `
-        <nav style="background: #333; padding: 10px; margin-bottom: 20px; font-family: sans-serif;">
-            <a href="index.html" style="color: white; margin-right: 15px; text-decoration: none;">Home</a>
-            <a href="routines.html" style="color: white; margin-right: 15px; text-decoration: none;">Routines (Plan)</a>
-            <a href="logger.html" style="color: white; margin-right: 15px; text-decoration: none;">Logger (Track)</a>
-            <a href="stats.html" style="color: white; text-decoration: none;">Stats (View)</a>
+        <nav class="glass-nav">
+            <div class="nav-content">
+                <a href="index.html" class="brand-logo">GymTracker ⚡</a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="routines.html">Plan</a>
+                    <a href="logger.html">Track</a>
+                    <a href="stats.html">Stats</a>
+                </div>
+            </div>
         </nav>
     `;
     
-    document.getElementById('navbar-placeholder').innerHTML = navHTML;
+    const placeholder = document.getElementById('navbar-placeholder');
+    if (placeholder) {
+        placeholder.innerHTML = navHTML;
+    }
 }
-
 document.addEventListener('DOMContentLoaded', loadNavbar);
 
 // for the graph
-function renderComparisonChart(userBMI, userDuration, userFreq, benchmark) {
-    const ctx = document.getElementById('comparisonChart');
+function renderComparisonChart(bmi, duration, freq, benchmark) {
+    const ctx = document.getElementById('comparisonChart').getContext('2d');
 
-    if (window.myChart instanceof Chart) {
+    const gradientUser = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientUser.addColorStop(0, 'rgba(79, 70, 229, 0.8)'); 
+    gradientUser.addColorStop(1, 'rgba(79, 70, 229, 0.2)'); 
+
+    const gradientAvg = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientAvg.addColorStop(0, 'rgba(16, 185, 129, 0.8)');
+    gradientAvg.addColorStop(1, 'rgba(16, 185, 129, 0.2)');
+
+    if (window.myChart) {
         window.myChart.destroy();
     }
 
     window.myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['BMI', 'Duration (mins)', 'Freq (days/wk)'], 
+            labels: ['BMI', 'Duration (hrs)', 'Freq (days/wk)'],
             datasets: [
                 {
-                    label: 'You',
-                    data: [userBMI, userDuration, userFreq], 
-                    backgroundColor: '#FF6384', // Red for You
-                    borderWidth: 1
+                    label: 'You 👤',
+                    data: [bmi, (duration / 60).toFixed(2), freq], 
+                    backgroundColor: gradientUser,
+                    borderColor: '#4F46E5',
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    barPercentage: 0.6,
                 },
                 {
-                    label: `Avg (${benchmark.ageRange} yrs)`,
-                    data: [benchmark.avgBMI, benchmark.avgDuration, benchmark.avgFreq],
-                    backgroundColor: '#36A2EB',
-                    borderWidth: 1
+                    label: 'Global Avg 🌍',
+                    data: [
+                        benchmark.avgBMI, 
+                        (benchmark.avgDuration / 60).toFixed(2), 
+                        benchmark.avgFreq
+                    ],
+                    backgroundColor: gradientAvg,
+                    borderColor: '#10B981',
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    barPercentage: 0.6,
                 }
             ]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: { family: "'Inter', sans-serif", size: 14, weight: 'bold' },
+                        color: '#333',
+                        usePointStyle: true,
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    cornerRadius: 8,
+                }
+            },
             scales: {
                 y: {
-                    beginAtZero: true 
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0, 0, 0, 0.05)', borderDash: [5, 5] }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            },
+            animations: {
+                y: {
+                    duration: 2000,
+                    easing: 'easeOutBounce', 
+                    from: 0 
                 }
             }
         }
     });
-}
-
-// ---- function to just add an exercise to be showed
+}// ---- function to just add an exercise to be showed
 function addExercise() {
     const exerciseInput = document.getElementById('exercise-input').value;
     const list = document.getElementById('exercise-list');
@@ -238,19 +286,16 @@ function loadHistory() {
 }
 loadHistory();
 
-// ENABLE "ENTER" KEY TO ADD EXERCISE
 const exerciseInput = document.getElementById('exercise-input');
 
 if (exerciseInput) {
     exerciseInput.addEventListener('keyup', function(event) {
-        // Check for "Enter" key
         if (event.key === 'Enter') {
-            event.preventDefault(); // Stop any weird default browser behavior
+            event.preventDefault();
             
-            // Check if the box is empty (optional, but good UX)
             if (exerciseInput.value.trim() !== "") {
                 console.log("Enter pressed! Adding exercise...");
-                addExercise(); // <--- Calls your function directly!
+                addExercise();
             }
         }
     });

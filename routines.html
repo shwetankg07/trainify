@@ -13,23 +13,27 @@
         <div class="page-content">
     <h1>Create a Routine ✍ </h1>
     
-    <div id="form-group">
-        <label>Routine Name:</label><br>
-        <input type="text" id="routine-name" placeholder="e.g., Push Day" style="padding: 8px;">
+    <div class="form-group">
+        <label>Routine Name:</label>
+        <input type="text" id="routine-name" placeholder="e.g., Push Day">
     </div>
 
-    <div style="margin-bottom: 20px;">
-        <label>Add Exercise:</label><br>
-        <input type="text" id="exercise-input" placeholder="e.g., Bench Press" style="padding: 8px;">
-        <button onclick="addExercise()" style="padding: 8px;">Add +</button>
+    <div class="form-group">
+        <label>Add Exercise:</label>
+        <div class="input-group">
+          <input type="text" id="exercise-input" placeholder="e.g., Bench Press">
+          <button onclick="addExercise()" id="add-btn">Add +</button>
+        </div>
     </div>
 
-    <h3>Exercises in this routine:</h3>
-    <ul id="exercise-list" style="margin-bottom: 20px; background: #eee; padding: 20px;">
-        <li>(No exercises added yet)</li>
-    </ul>
+      <div class="list-container">
+        <h3>Exercises in this routine:</h3>
+        <ul id="exercise-list">
+          <li class="empty-msg">(No exercises added yet)</li>
+        </ul>
+      </div>
 
-    <button onclick="saveRoutine()" style="padding: 10px 20px; background: green; color: white; border: none; cursor: pointer;">
+    <button onclick="saveRoutine()" id="save-btn">
         Save Routine
     </button>
 </div> 

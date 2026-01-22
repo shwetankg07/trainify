@@ -3,32 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Tracker</title>
+    <title>Gym Tracker - Log</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script> //defer makes the script load at the end
+    <script src="script.js" defer></script> <!---defer makes the script load at the end--->
 </head>
 <body>
 
     <div id="navbar-placeholder"></div>
 
-    <div class="page-content">
-        <h1>logger.html</h1>
-        
-        </div>
-
 <div class="page-content">
     <h1>Log a Workout</h1>
-
-    <label>Select Routine:</label>
-    <select id="routine-dropdown" onchange="loadRoutineInputs()">
-        <option value="">-- Choose a Routine --</option>
+    <div class = "form-group">
+        <label>Select Routine:</label>
+        <select id="routine-dropdown" onchange="loadRoutineInputs()">
+          <option value="">-- Choose a Routine --</option>
         </select>
+    </div>
 
-    <hr>
 
     <div id="inputs-container"></div>
 
-    <button onclick="finishWorkout()" style="margin-top: 20px;">Finish Workout</button>
+    <button onclick="finishWorkout()" id="save-btn">Finish Workout</button>
 </div>
 </body>
 </html>
