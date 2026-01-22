@@ -1,3 +1,13 @@
+// chota sa dataset to compare bmi and other things in the stats page 
+const gymBenchmarks = [
+  { ageRange: "18-19", min: 18, max: 19, avgBMI: 24.77, avgDuration: 76, avgFreq: 3.2 },
+  { ageRange: "20-29", min: 20, max: 29, avgBMI: 25.50, avgDuration: 75, avgFreq: 3.3 },
+  { ageRange: "30-39", min: 30, max: 39, avgBMI: 25.18, avgDuration: 75, avgFreq: 3.4 },
+  { ageRange: "40-49", min: 40, max: 49, avgBMI: 23.61, avgDuration: 77, avgFreq: 3.4 },
+  { ageRange: "50-59", min: 50, max: 59, avgBMI: 25.48, avgDuration: 74, avgFreq: 3.3 }
+];
+
+
 let tempExercises = [];
 let workoutData = [];
 
@@ -16,6 +26,44 @@ function loadNavbar() {
 }
 
 document.addEventListener('DOMContentLoaded', loadNavbar);
+
+// for the graph
+function renderComparisonChart(userBMI, userDuration, userFreq, benchmark) {
+    const ctx = document.getElementById('comparisonChart');
+
+    if (window.myChart instanceof Chart) {
+        window.myChart.destroy();
+    }
+
+    window.myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['BMI', 'Duration (mins)', 'Freq (days/wk)'], 
+            datasets: [
+                {
+                    label: 'You',
+                    data: [userBMI, userDuration, userFreq], 
+                    backgroundColor: '#FF6384', // Red for You
+                    borderWidth: 1
+                },
+                {
+                    label: `Avg (${benchmark.ageRange} yrs)`,
+                    data: [benchmark.avgBMI, benchmark.avgDuration, benchmark.avgFreq],
+                    backgroundColor: '#36A2EB',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true 
+                }
+            }
+        }
+    });
+}
 
 // ---- function to just add an exercise to be showed
 function addExercise() {
@@ -132,3 +180,30 @@ function finishWorkout(){
   window.location.href = "index.html";
 
 }
+
+function compareStats(){
+  const ageInput = document.getElementById('age-input');
+  const weightInput = document.getElementById('weight-input');
+  const heightInput = document.getElementById('height-input');
+  const durationInput = document.getElementById('duration-input');
+  const freqInput = document.getElementById('freq-input');
+
+  const age = Number(ageInput.value);
+  const weight = parseFloat(weightInput.value);
+  const heightcm = parseFloat(heightInput.value);
+  const duration = Number(durationInput.value);
+  const freq = Number(freqInput.value);
+
+  const heightM = heightcm / 100;
+  const bmi = weight/ (heightM * heightM);
+  console.log(bmi.toFixed());
+  const benchmark = gymBenchmarks.find(b => age >= b.min  && age <= b.max);
+  if(benchmark){
+    console.log("Found benchmark:", benchmark);
+    renderComparisonChart(bmi, duration, freq, benchmark);
+  } else {
+    alert("Sorry, we dont have that much data yet")
+  }
+}
+
+
