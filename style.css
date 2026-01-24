@@ -366,3 +366,188 @@ button {
     position: relative;
     height: 400px; /* Enforces height */
 }
+
+/* =========================================
+   10. LANDING PAGE (HOME) SPECIFIC
+   ========================================= */
+
+/* HERO SECTION */
+.hero-section {
+    text-align: center;
+    padding: 80px 20px 50px;
+    animation: simpleFadeDown 0.8s ease-out;
+}
+
+.hero-title {
+    font-size: 3rem; /* Big and Bold */
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background: var(--text-main); /* Dark button for contrast */
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px; /* Pill shape */
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    background: black;
+}
+
+/* HOME GRID LAYOUT */
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    background: transparent !important; /* Remove white box from container */
+    box-shadow: none !important;        /* Remove shadow from container */
+    padding: 0;
+    max-width: 900px;
+}
+
+/* FEATURE CARDS */
+.feature-card {
+ /* Simple "Float Down" animation for text */
+@keyframes simpleFadeDown {
+    from { 
+        opacity: 0; 
+        transform: translateY(-30px); /* Starts 30px higher */
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);     /* Lands in normal spot */
+    }
+}   background: rgba(255, 255, 255, 0.7); /* Slight transparency */
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px); /* Lifts up */
+    background: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.feature-card .icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.feature-card h2 {
+    margin: 10px 0;
+    color: var(--text-main);
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.link-text {
+    color: var(--primary);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Simple "Float Down" animation for text */
+@keyframes simpleFadeDown {
+    from { 
+        opacity: 0; 
+        transform: translateY(-30px); /* Starts 30px higher */
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);     /* Lands in normal spot */
+    }
+}
+
+/* Change Placeholder Color */
+::placeholder {
+    color: rgba(0, 0, 0, 0.3); /* Low opacity black = very light grey */
+    opacity: 1; /* Required to override Firefox's default opacity */
+}
+
+/* Optional: If you want it even lighter on focus */
+input:focus::placeholder {
+    color: rgba(0, 0, 0, 0.15); /* Fades out when you click to type */
+}
+
+/* =========================================
+   11. DARK MODE (THE "NIGHT GYM" THEME) 🌑
+   ========================================= */
+body.dark-mode {
+    /* Override Variables */
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Midnight Blue/Black */
+    --glass-bg: rgba(30, 41, 59, 0.7); /* Dark Glass */
+    --glass-border: rgba(255, 255, 255, 0.08); /* Faint white border */
+    --text-main: #f8fafc; /* Almost White */
+    --text-muted: #94a3b8; /* Light Grey */
+    --card-bg: #1e293b;    /* Dark Card */
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Fix specific elements for Dark Mode */
+body.dark-mode .glass-nav {
+    background: rgba(15, 23, 42, 0.6); /* Darker Navbar */
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .dashboard-card,
+body.dark-mode #inputs-container > div,
+body.dark-mode .feature-card, 
+body.dark-mode .page-content {
+    background: #1e293b; /* Dark Slate */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Inputs need to be dark too */
+body.dark-mode input, 
+body.dark-mode select {
+    background: #0f172a;
+    color: white;
+    border-color: #334155;
+}
+
+body.dark-mode input:focus {
+    border-color: var(--primary);
+    background: #020617; /* Even darker on focus */
+}
+
+/* Fix the list items in history */
+body.dark-mode #history-list li,
+body.dark-mode #exercise-list li {
+    background: #334155;
+    color: white;
+}
+
+/* Hover effects for landing page cards */
+body.dark-mode .feature-card:hover {
+    background: #334155;
+}
+
+

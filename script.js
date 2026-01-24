@@ -15,7 +15,7 @@ function loadNavbar() {
     const navHTML = `
         <nav class="glass-nav">
             <div class="nav-content">
-                <a href="index.html" class="brand-logo">GymTracker ⚡</a>
+                <a href="index.html" class="brand-logo">Trainify</a>
                 <div class="nav-links">
                     <a href="index.html">Home</a>
                     <a href="routines.html">Plan</a>
@@ -121,7 +121,7 @@ function addExercise() {
         list.innerHTML = "";
     }
     if(exerciseInput === ""){
-    alert("please type an exercise name")
+    alert("exercise name??")
     return;
   }
     tempExercises.push(exerciseInput);
@@ -139,7 +139,7 @@ function saveRoutine(){
        exercises: tempExercises
       };
     if(routineName === "" || tempExercises.length === 0){
-    alert("not all input fields are filled")
+    alert("atleast fill all the input fields")
     return;
   }
   const routineList = JSON.parse(localStorage.getItem('myRoutines')) || [];
@@ -157,7 +157,7 @@ function saveRoutine(){
 function populateDropdown() {
     const existingRoutines = JSON.parse(localStorage.getItem('myRoutines')) || [];
     const dropdown = document.getElementById('routine-dropdown');
-    dropdown.innerHTML = '<option value="">-- Choose a Routine --</option>';
+    dropdown.innerHTML = '<option value="" disabled selected hidden>what day is today? (chest?? not againn)</option>';
     existingRoutines.forEach(routine => {
         const optionHTML = `<option value="${routine.name}">${routine.name}</option>`;
         dropdown.innerHTML += optionHTML;
@@ -169,10 +169,8 @@ if (document.getElementById('routine-dropdown')) {
 
 function loadRoutineInputs() {
     const dropdown = document.getElementById('routine-dropdown');
-    console.log(dropdown.value);
     const existingRoutines = JSON.parse(localStorage.getItem('myRoutines')) || [];
     const whatsRN = existingRoutines.find(potato => potato.name == dropdown.value); //found out you can use anything here, so potato it is lol
-    console.log(whatsRN);
     if(whatsRN === undefined){
       return;
     }
@@ -185,15 +183,16 @@ function loadRoutineInputs() {
         card.style.padding = "10px";
     const exerciseHeader = document.createElement('h3');
     exerciseHeader.innerText = potato;
-    console.log(potato);
     card.appendChild(exerciseHeader);
     const weightInput = document.createElement('input');
     weightInput.type = "number";
-    weightInput.placeholder = "set up that heavy ahh weight";
+    weightInput.placeholder = "how heavy is that weight?";
+    weightInput.min = "0";
     card.appendChild(weightInput);
     const repInput = document.createElement("input");
     repInput.type = "number";
-    repInput.placeholder = "reps?";
+    repInput.placeholder = "how many are those reps?";
+    repInput.min = "0";
     card.appendChild(repInput);
     container.appendChild(card);
   })
@@ -209,7 +208,6 @@ function finishWorkout(){
       const inputs = card.querySelectorAll('input');
       const weight = inputs[0].value;
       const reps = inputs[1].value;
-      console.log(inputs,weight,reps);
     if(weight && reps){
       workoutData.push({
         exercise: name,
@@ -227,7 +225,7 @@ function finishWorkout(){
   const previousLogs = JSON.parse(localStorage.getItem('myWorkoutLogs')) || [];
   previousLogs.push(session);
   localStorage.setItem('myWorkoutLogs', JSON.stringify(previousLogs));
-  alert("Workout Saved! Great job.");
+  alert("Workout Saved! lets hit legs the next time ;)");
   window.location.href = "index.html";
 
 }
@@ -247,13 +245,11 @@ function compareStats(){
 
   const heightM = heightcm / 100;
   const bmi = weight/ (heightM * heightM);
-  console.log(bmi.toFixed());
   const benchmark = gymBenchmarks.find(b => age >= b.min  && age <= b.max);
   if(benchmark){
-    console.log("Found benchmark:", benchmark);
     renderComparisonChart(bmi, duration, freq, benchmark);
   } else {
-    alert("Sorry, we dont have that much data yet")
+    alert("lemme guess, minor? alien? RONNIE COLEMAN??")
   }
 }
 
@@ -262,7 +258,7 @@ function loadHistory() {
     if (!historyContainer) return;
     const logs = JSON.parse(localStorage.getItem('myWorkoutLogs')) || [];
     if (logs.length === 0) {
-        historyContainer.innerHTML = "<p>No workouts found. Go lift something! 💪</p>";
+        historyContainer.innerHTML = "<p>No workouts found. hit the gym</p>";
         return;
     }
     historyContainer.innerHTML = '';
@@ -294,7 +290,6 @@ if (exerciseInput) {
             event.preventDefault();
             
             if (exerciseInput.value.trim() !== "") {
-                console.log("Enter pressed! Adding exercise...");
                 addExercise();
             }
         }

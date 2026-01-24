@@ -3,18 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Tracker</title>
+    <title>Gym Tracker - Home</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <div id="navbar-placeholder"></div>
 
-    <div class="page-content">
-        <h1>index.html</h1>
+    <div class="hero-section">
+        <h1 class="hero-title">Level Up Your Fitness 🚀</h1>
+        <p class="hero-subtitle">
+            Stop guessing. Start tracking. 
+            <br>The smartest way to plan workouts and compare your stats with the world.
+        </p>
+        <a href="routines.html">
+            <button class="cta-button">Start Your Journey &rarr;</button>
+        </a>
+    </div>
+
+    <div class="page-content home-grid">
         
+        <div class="feature-card" onclick="window.location.href='routines.html'">
+            <div class="icon">📝</div>
+            <h2>1. Plan</h2>
+            <p>Create custom routines like "Push Day" or "Legs". Define your exercises once, and use them forever.</p>
+            <a href="routines.html" class="link-text">Create a Routine &rarr;</a>
         </div>
 
-    <script src="script.js"></script>
+        <div class="feature-card" onclick="window.location.href='logger.html'">
+            <div class="icon">🏋️‍♂️</div>
+            <h2>2. Track</h2>
+            <p>Log your sets, reps, and weights in real-time. No pen and paper needed. Just lift and log.</p>
+            <a href="logger.html" class="link-text">Log a Workout &rarr;</a>
+        </div>
+
+        <div class="feature-card" onclick="window.location.href='stats.html'">
+            <div class="icon">📊</div>
+            <h2>3. Analyze</h2>
+            <p>Visualize your progress. Compare your strength & consistency against 900+ other gym members.</p>
+            <a href="stats.html" class="link-text">View Your Stats &rarr;</a>
+        </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; color: #666; font-size: 0.9rem;">
+        <p>"The only bad workout is the one that didn't happen."</p>
+    </div>
+
 </body>
 </html>
